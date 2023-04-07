@@ -18,7 +18,7 @@ Open a console and write:
 mkdir OPTEE-RPI4
 cd OPTEE-RPI4/
 ```
-Check the [BuildRoot User Manual](https://buildroot.org/downloads/manual/manual.html), in order to veriufy if all mandatoy packages are installed. 
+Check the [BuildRoot User Manual](https://buildroot.org/downloads/manual/manual.html), in order to verify if all mandatoy packages are installed. 
 If not, install.
 
 ```
