@@ -121,6 +121,12 @@ In a more technical perspective, the ARM implements the **cold boot path**, or A
 - **BL32** - Secure-EL1 Payload
 - **BL33** - Non-trusted Firmware
 
+For more information, please consult the [link](https://chromium.googlesource.com/chromiumos/third_party/arm-trusted-firmware/+/v1.2-rc0/docs/firmware-design.md)
+
+In this port, the approach is, kowing 
+
+![alt text](http://url/to/img.png)
+
 First, we need to fork (or download) the existing ARM Trusted Firmware from the offcial ARM Github website:
 
 ```
