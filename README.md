@@ -295,14 +295,31 @@ Open one terminal (T1) (CTRL+ALT+T) and type:
 ssh root@10.42.0.94 (Connect via SSH the host (our computer) to Raspberry (our client))
 ```
 
-Open one second terminal (T2) (CTRL+ALT+T) and type:
+Open one second terminal (T2) (CTRL+ALT+T), navigate to your Client Application and Trusted Application directory and type:
 ```
-cd OP-TEE-RPI4
-mkdir example
-code hello.c (And write a simple HelloWorld example)
-cd ~
-code .bashrc (In the FIRST time, add: export PATH="$PATH:~/Projects/buildroot/output/host/bin/")
-cd ~Projects/example
-arm-buildroot-linux-gnueabihf-gcc hello.c -o arm-hello (This generates the binaries for ARM architecture (Raspberry)) 
-scp arm-hello root@10.42.0.94:/etc (copy the file to the etc Raspberry folder)
+scp client_aplication.rs root@10.42.0.94:/etc
+scp trusted_aplication_uuid.ta root@10.42.0.94:/etc
 ```
+
+**Note**: The *.rs* means a Rust file and the trusted_aplication_uuid means the *UUID* and are used as example.  
+
+Open the first terminal (T1) and type:
+```
+cd /lib/
+mkdir optee_armtz
+```
+
+This will create the ARM Trustzone directory wich the **TEE-Suplicant** will find the Trusted Application.
+
+To visualize if the OPTEE Client library exists, run the following command:
+
+```
+find -name "optee_client.so"
+```
+
+If you were successful, you are ready to execute your application, by typing:
+```
+cd /etc
+./client_aplication.rs
+```
+
