@@ -180,7 +180,21 @@ First, we need to download the existing OPTEE Trusted OS from the offcial OPTEE 
 
 ```
 cd OPTEE-RPI4
-git clone git@github.com:ARM-software/arm-trusted-firmware.git
-
-cd /arm-trusted-firmware/plat/rpi/rpi4
+git clone git@github.com:OP-TEE/optee_os.git
 ```
+
+Next, execute the following command to create a new platform for the Raspberry Pi 4 based on the previsous version:
+```
+cd optee_os/core/arch/arm
+cp -rf plat-rpi3 plat-rpi4
+
+cd plat-rpi4
+ls
+```
+
+Now, you should see four files:
+- **conf.mk**: This is the device specific makefile where you define configurations unique to your platform
+- 
+
+
+
