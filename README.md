@@ -216,7 +216,7 @@ Before compile the ARM Trusted Firmware and the Trusted OS, we need to download 
 
 After that, **extract the toolchain** to the working directory, create a directory called `toolchains` and insert them into that directory.
 
-If you run the command `ls`ypu should see:
+If you run the command `ls`you should see:
 
 ```
 arm-trusted-firmware
