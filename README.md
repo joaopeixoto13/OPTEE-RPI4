@@ -6,7 +6,7 @@ However, this port will show all the steps, from the generation of the **Rich Op
 
 ---
 
-## Generate the Rich Operating System
+# Generate the Rich Operating System
 
 First, it is necessary to generate the unsecured, or rich, operating system in order to run the Client Application. 
 
@@ -107,5 +107,19 @@ Device Drivers ==> Trusted Execution Environment support
 
 **Note**: The `Trusted Execution Environment support` provides all the drivers to establish the communication between the Secure and NOn-SEcure World (more known as *Secure Monitor*). This driver will be built as module (*optee.ko*) by default and included in rootfs.
 
+---
 
+# Generate the ARM Trusted Firmware
 
+In this case, although ARM offers the [Firmware](https://github.com/ARM-software/arm-trusted-firmware) support to Raspberry Pi 4 platform, 
+
+First, we need to fork (or download) the existing ARM Trusted Firmware from the offcial ARM Github website:
+
+```
+cd OPTEE-RPI4
+git clone git@github.com:ARM-software/arm-trusted-firmware.git
+
+cd /arm-trusted-firmware/plat/rpi/rpi4
+```
+
+Next, 
