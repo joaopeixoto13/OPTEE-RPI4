@@ -123,9 +123,9 @@ In a more technical perspective, the ARM implements the **cold boot path**, or A
 
 For more information, please consult the [link](https://chromium.googlesource.com/chromiumos/third_party/arm-trusted-firmware/+/v1.2-rc0/docs/firmware-design.md)
 
-In this port, the approach is, kowing 
+In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS image to the entry address (0x10100000), because the BL32 binaries are stored in the FIP address space (0x2000). Not only, but also the Device Tree Blob (DTB) address must be defined to dewcribe the hardware features. All this steps are described below.
 
-![alt text]()
+![alt text](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Memory.png)
 
 First, we need to fork (or download) the existing ARM Trusted Firmware from the offcial ARM Github website:
 
@@ -136,4 +136,4 @@ git clone git@github.com:ARM-software/arm-trusted-firmware.git
 cd /arm-trusted-firmware/plat/rpi/rpi4
 ```
 
-Next, 
+Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navigate to the **bl31_early_platform_setup2** function.
