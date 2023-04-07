@@ -323,3 +323,32 @@ cd /etc
 ./client_aplication.rs
 ```
 
+### Serial Port Configuration (UART)
+
+First, to get serial console for our board, we need to install some serial terminal program:
+
+```
+sudo apt install -y picocom
+```
+
+In order to get to work, we must add the permission to the dialog user, even using with sudo:
+
+```
+sudo usermod -a -G dialout $USER
+```
+
+Check if the dialout is on the user group:
+
+```
+groups $USER
+```
+
+Add the baudrate and the local where the board is connected on our computer:
+
+```
+picocom -b 115200 /dev/tty/ACM0
+```
+
+**Note**: If you **haven't the correct output messages**, please `Reset` the board with the associated button.
+
+If everything works, we must have one `buildroot login prompt` and you can see all the **Boot** messages.
