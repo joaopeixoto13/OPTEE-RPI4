@@ -225,7 +225,7 @@ optee_os
 toolchains
 ```
 
-Where inside the toolchains tou have the `aarch64`folder with the toolchain.
+Where inside the toolchains you have the `aarch64`folder with the toolchain.
 
 Next, copy the [Makefile](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Makefile) into your working directory and run the command:
 
