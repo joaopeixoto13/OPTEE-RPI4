@@ -252,3 +252,57 @@ This parameter has extremely importance because the corresponding file will be l
 The image below ilustrates the Secure Boot sequence:
 
 ![alt text](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/SecureBoot.png)
+
+Therefore, the kernel image is defined and the device tree address is specified. 
+
+Finnaly, the Initial RAM File System `initramfs` is defined and placed in the end of the device tree. This parameter is responsible to mount the Normal World (Rich OS) root filesystem.
+
+### Setup the SD Card
+
+Insert the SD Card and type:
+
+```
+sudo dd if=output/images/sdcard.img of=/dev/mmcblk0 
+```
+
+**Note**: This command is responsible to copy the image file generated to our slot SD card (with the ID of `mmcblk0`). However, the ID can change, and the command has the folling characteristics:
+- `if` means `input file`, and refers where the image file is stored
+- `of` means `output file`, and referes where the image will be copy
+
+In this specific case, after the copy process, remove the SD card from the computer and put into the Raspberry Pi 4.
+
+### Ethernet Configuration
+
+In yours PC, go to:
+```
+Settings ==> Network ==> Wired (Ethernet Connectiopn) ==> IPv4
+(And disable "automatic (dhcp)" and select "share to other computers")
+```
+
+```
+Remove the Ethernet and connect again
+```
+
+To visualize the assigned DHCP IPs, type:
+```
+arp -a
+```
+
+**Note**: In this case, we assume that Raspberry IP is `10.42.0.94`
+
+Open one terminal (T1) (CTRL+ALT+T) and type:
+```
+ssh root@10.42.0.94 (Connect via SSH the host (our computer) to Raspberry (our client))
+```
+
+Open one second terminal (T2) (CTRL+ALT+T) and type:
+```
+cd OP-TEE-RPI4
+mkdir example
+code hello.c (And write a simple HelloWorld example)
+cd ~
+code .bashrc (In the FIRST time, add: export PATH="$PATH:~/Projects/buildroot/output/host/bin/")
+cd ~Projects/example
+arm-buildroot-linux-gnueabihf-gcc hello.c -o arm-hello (This generates the binaries for ARM architecture (Raspberry)) 
+scp arm-hello root@10.42.0.94:/etc (copy the file to the etc Raspberry folder)
+```
