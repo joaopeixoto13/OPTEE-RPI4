@@ -1,5 +1,4 @@
 # Define the paths
-$(HOME)
 OPTEE_DIR := YOUR_PATH/OP-TEE-RPI4
 TFA_DIR := ${OPTEE_DIR}/arm-trusted-firmware
 RPI4_TFA_DIR := ${TFA_DIR}/plat/rpi/rpi4
