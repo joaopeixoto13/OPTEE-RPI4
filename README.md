@@ -102,7 +102,6 @@ make linux-menuconfig
 - Enable **Trusted Execution Environment support**:
 ```
 Device Drivers ==> Trusted Execution Environment support
-(Change "**TTY port**" to "**ttyAMA0**" and **baudrate to 115200**) (Change the serial port and baudrate)
 ```
 
 **Note**: The `Trusted Execution Environment support` provides all the drivers to establish the communication between the Secure and Non-Secure World (more known as *Secure Monitor*). This driver will be built as module (*optee.ko*) by default and included in rootfs.
