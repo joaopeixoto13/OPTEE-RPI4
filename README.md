@@ -83,7 +83,7 @@ To start the build process, simply run:
 make -j$(nproc)
 ```
 
-(*This step can take about ~1h to be completed on a laptop with an INtel i7-9750H processor*)
+(*This step can take about ~1h to be completed on a laptop with an Intel i7-9750H processor*)
 
 Once the process is done, **and if no error occurred**, Buildroot output is stored in a single directory, output/. This directory contains several subdirectories:
 
@@ -111,7 +111,15 @@ Device Drivers ==> Trusted Execution Environment support
 
 # Generate the ARM Trusted Firmware
 
-In this case, although ARM offers the [Firmware](https://github.com/ARM-software/arm-trusted-firmware) support to Raspberry Pi 4 platform, 
+In this case, although ARM offers the [Firmware](https://github.com/ARM-software/arm-trusted-firmware) support to Raspberry Pi 4 platform, at the moment the BL32 (or Trusted OS) is not supported.
+
+In a more technical perspective, the ARM implements the **cold boot path**, or ARM Trusted Firmware (ATF) Secure Boot, that is responsible to authenticate a series of cryptographic signed binary images each containing a different stage or element in the system boot process to be loaded and executed. Every bootloader (BL) stage accomplishes a different stage in the initialization process:
+
+- **BL1** - AP Trusted ROM
+- **BL2** - Trusted Boot Firmware
+- **BL31** - EL3 Runtime Firmware
+- **BL32** - Secure-EL1 Payload
+- **BL33** - Non-trusted Firmware
 
 First, we need to fork (or download) the existing ARM Trusted Firmware from the offcial ARM Github website:
 
