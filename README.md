@@ -194,7 +194,15 @@ ls
 
 Now, you should see four files:
 - **conf.mk**: This is the device specific makefile where you define configurations unique to your platform
-- 
+- **main.c**: This platform specific file will contain power management handlers and code related to the UART
+- **platform_config.h**: Memory configuration and define base addresses 
+- **sub.mk**: Indicates the source files
+
+However, only two things must be changed in the file `platform_config.h`. This things are:
+- The **UART base address**: 0xfe215040
+- The **UART Clock Frequency**: 48000000
+
+The **UART base address** can be found in the next [link](https://www.raspberrypi.com/documentation/computers/configuration.html) and the **UART Clock Frequency** can be found in this [link](https://www.raspberrypi.com/documentation/computers/config_txt.html#init_uart_clock) 
 
 
 
