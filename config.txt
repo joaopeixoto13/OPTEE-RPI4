@@ -1,0 +1,24 @@
+# Enable UART
+enable_uart=1
+uart_2ndstage=1
+
+# 64-bit
+arm_64bit=1
+
+# Loads at 0x00 and executes it in EL3 in AArch64
+armstub=bl31-bl32.bin
+
+# Define the Kernel image (Normal World)
+kernel=Image
+
+# Define the Kernel Address
+kernel_address=0x200000 
+
+# Device Tree Address
+device_tree_address=0x2bd00f00
+
+# Device Tree End (64K bytes)
+device_tree_end=0x2bd10f00  
+
+# Initial ram file system (end of the device tree) ==> To mount the root filesystem
+initramfs rootfs.cpio.gz 0x2bd10f00 
