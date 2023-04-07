@@ -206,5 +206,11 @@ However, only two things must be changed in the file `platform_config.h`. This t
 
 The **UART base address** can be found in the next [link](https://www.raspberrypi.com/documentation/computers/configuration.html) and the **UART Clock Frequency** can be found in this [link](https://www.raspberrypi.com/documentation/computers/config_txt.html#init_uart_clock) 
 
+**Note**: The `platform_config.h` code can be found [here](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/platform_config.h)
+
+---
+
+Compile the ARM Trusted Firmware and the Trusted OS
+
 
 
