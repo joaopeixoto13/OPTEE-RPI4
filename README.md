@@ -109,7 +109,7 @@ Device Drivers ==> Trusted Execution Environment support
 
 ---
 
-# Generate the ARM Trusted Firmware
+# Update the ARM Trusted Firmware
 
 In this case, although ARM offers the [Firmware](https://github.com/ARM-software/arm-trusted-firmware) support to Raspberry Pi 4 platform, at the moment the BL32 (or Trusted OS) is not supported.
 
@@ -123,7 +123,7 @@ In a more technical perspective, the ARM implements the **cold boot path**, or A
 
 For more information, please consult the [link](https://chromium.googlesource.com/chromiumos/third_party/arm-trusted-firmware/+/v1.2-rc0/docs/firmware-design.md)
 
-In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS image to the entry address (0x10100000), because the BL32 binaries are stored in the FIP address space (0x2000). Not only, but also the Device Tree Blob (DTB) address must be defined to dewcribe the hardware features. All this steps are described below.
+In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS image to the entry address, or Secure Payload (0x10100000), because the BL32 binaries are stored in the FIP address space (0x2000). Not only, but also the Device Tree Blob (DTB) address must be defined to dewcribe the hardware features. All this steps are described below.
 
 ![alt text](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Memory.png)
 
@@ -172,4 +172,15 @@ VERBOSE("rpi4: trusted_os entry: %p\n", (void*)bl32_image_ep_info.pc);
 
 // Print some information (Boot debug)
 VERBOSE("rpi4: bl32 dtb: %p\n", (void*)bl32_image_ep_info.args.arg2);
+```
+
+# Update the OPTEE Trusted OS
+
+First, we need to download the existing OPTEE Trusted OS from the offcial OPTEE Github website:
+
+```
+cd OPTEE-RPI4
+git clone git@github.com:ARM-software/arm-trusted-firmware.git
+
+cd /arm-trusted-firmware/plat/rpi/rpi4
 ```
