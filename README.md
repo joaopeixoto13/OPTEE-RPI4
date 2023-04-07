@@ -136,4 +136,23 @@ git clone git@github.com:ARM-software/arm-trusted-firmware.git
 cd /arm-trusted-firmware/plat/rpi/rpi4
 ```
 
-Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navigate to the **bl31_early_platform_setup2** function.
+Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navigate to the **bl31_early_platform_setup2** function:
+```
+code rpi4_bl31_setup.c
+```
+As can been seen, this function performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()*:
+
+```
+	const size_t trustedOS_size = 500 * 1024;									// Define the OP-TEE OS image size (500k bytes)
+	const void *const fip_addr = (const void*)(128 * 1024);		// Define the OP-TEE OS image load address (FIP address - 0x20000)
+	void *const trustedOS_addr = (void*)0x10100000;						// Define the OP-TEE OS image address (Secure Payload - 0x10100000)
+	VERBOSE("rpi4: copy trusted_os image (%lu bytes) from %p to %p\n", trustedOS_size, fip_addr, trustedOS_addr);
+	memcpy(trustedOS_addr, fip_addr, trustedOS_size);					// Copy the OP-TEE OS image to the entry address
+
+	/* Initialize the OP-TEE OS image info. */
+	bl32_image_ep_info.pc = (uintptr_t)trustedOS_addr;				// Define the bl32 entry point address (0x10100000)
+	bl32_image_ep_info.args.arg2 = rpi4_get_dtb_address();		// Define the Device Tree Blob (DTB) address
+	SET_SECURITY_STATE(bl32_image_ep_info.h.attr, SECURE);		// Define the Secure State
+	VERBOSE("rpi4: trusted_os entry: %p\n", (void*)bl32_image_ep_info.pc);
+	VERBOSE("rpi4: bl32 dtb: %p\n", (void*)bl32_image_ep_info.args.arg2);
+```
