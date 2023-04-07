@@ -323,6 +323,8 @@ cd /etc
 ./client_aplication.rs
 ```
 
+![Result](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Result.png)
+
 ### Serial Port Configuration (UART)
 
 First, to get serial console for our board, we need to install some serial terminal program:
