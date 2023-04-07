@@ -174,6 +174,8 @@ VERBOSE("rpi4: trusted_os entry: %p\n", (void*)bl32_image_ep_info.pc);
 VERBOSE("rpi4: bl32 dtb: %p\n", (void*)bl32_image_ep_info.args.arg2);
 ```
 
+**Note**: The `rpi4_bl31_setup.c` code can be found [here](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/rpi4_bl31_setup.c)
+
 # Update the OPTEE Trusted OS
 
 First, we need to download the existing OPTEE Trusted OS from the offcial OPTEE Github website:
