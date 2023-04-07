@@ -239,3 +239,4 @@ This Makefile is responsible to not only to compile the ARM Trusted Firmware and
 
 # Setup the Raspberry Pi 4
 
+First, 
