@@ -306,6 +306,7 @@ Open the first terminal (T1) and type:
 ```
 cd /lib/
 mkdir optee_armtz
+cp /etc/trusted_aplication_uuid.ta optee_armtz
 ```
 
 This will create the ARM Trustzone directory wich the **TEE-Suplicant** will find the Trusted Application.
