@@ -210,7 +210,32 @@ The **UART base address** can be found in the next [link](https://www.raspberryp
 
 ---
 
-Compile the ARM Trusted Firmware and the Trusted OS
+# Compile the ARM Trusted Firmware and the Trusted OS
 
+Before compile the ARM Trusted Firmware and the Trusted OS, we need to download the ARM toolchains. In this case, was used the aarch64 11.3 version and can be downloaded [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads).
 
+After that, **extract the toolchain** to the working directory, create a directory called `toolchains` and insert them into that directory.
+
+If you run the command `ls`ypu should see:
+
+```
+arm-trusted-firmware
+buildroot
+optee_os
+toolchains
+```
+
+Where inside the toolchains tou have the `aarch64`folder with the toolchain.
+
+Next, copy the [Makefile](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Makefile) into your working directory and run the command:
+
+```
+make
+```
+
+This Makefile is responsible to not only to compile the ARM Trusted Firmware and the Trusted OS, but also to **concatenate this two binaries into one binary to be loaded in the memory**.
+
+---
+
+# Setup the Raspberry Pi 4
 
