@@ -125,7 +125,7 @@ For more information, please consult the [link](https://chromium.googlesource.co
 
 In this port, the approach is, kowing 
 
-![alt text](http://url/to/img.png)
+![alt text]()
 
 First, we need to fork (or download) the existing ARM Trusted Firmware from the offcial ARM Github website:
 
