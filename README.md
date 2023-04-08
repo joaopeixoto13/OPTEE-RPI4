@@ -1,9 +1,16 @@
 # Description
 
-The Raspberry Pi 4 is an inexpensive single-board computer that contains four Arm Cortex-A72 cores. However, at the current time (`April 7, 2023`), this plataform does not support the Trusted OS capable of running *secure* services in a TEE enclosure. Note that this port will not became the system secure, because in Raspberry PI boards, all of the memory used is DRAM, which is available from both the Non-Secure and Secure State. To make the system safe, both in terms of the CPU and in terms of memory and peripherals, a **Hypervisor** must be used to overcome the defects inherent in the board itself, which have already been mentioned.
+The Raspberry Pi 4 is an inexpensive single-board computer that contains four Arm Cortex-A72 cores. However, at the current time (`April 8, 2023`), this plataform does not support the Trusted OS capable of running *secure* services in a TEE enclosure. Note that this port will not became the system secure, because in Raspberry PI boards, all of the memory used is DRAM, which is available from both the Non-Secure and Secure State. To make the system safe, both in terms of the CPU and in terms of memory and peripherals, a **Hypervisor** must be used to overcome the defects inherent in the board itself, which have already been mentioned.
 
 However, this port will show all the steps, from the generation of the **Rich Operating System**, to the compilation of the **ARM Trusted Firmware** and the **Trusted OS** to run [OPTEE](https://www.op-tee.org/) on the board.
 
+The image below graphically illustrates the steps to be performed:
+
+![](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Flow.png)
+
+Not only, but in order to understand the main blocks in the architecture of OPTEE, namely which packages will be needed both for the Client Application and for the Trusted Application, see the image below:
+
+![](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/BuildingBlock.png)
 ---
 
 # Generate the Rich Operating System
@@ -40,8 +47,6 @@ make raspberrypi4_64_defconfig
 ```
 
 We should see `configuration written to .../OPTEE-RPI4/buildroot/.config`
-
-The default configuration should be good enough, but we gonna change some configurations:
 
 Run the next command to bring the graphical interface for our build:
 
@@ -112,7 +117,7 @@ Device Drivers ==> Trusted Execution Environment support
 
 In this case, although ARM offers the [Firmware](https://github.com/ARM-software/arm-trusted-firmware) support to Raspberry Pi 4 platform, at the moment the BL32 (or Trusted OS) is not supported.
 
-In a more technical perspective, the ARM implements the **cold boot path**, or ARM Trusted Firmware (ATF) Secure Boot, that is responsible to authenticate a series of cryptographic signed binary images each containing a different stage or element in the system boot process to be loaded and executed. Every bootloader (BL) stage accomplishes a different stage in the initialization process:
+In a more technical perspective, the ARM implements the **cold boot path**, or ARM Trusted Firmware (ATF) **Secure Boot**, that is responsible to authenticate a series of cryptographic signed binary images each containing a different stage or element in the system boot process to be loaded and executed. Every bootloader (BL) stage accomplishes a different stage in the initialization process:
 
 - **BL1** - AP Trusted ROM
 - **BL2** - Trusted Boot Firmware
@@ -122,7 +127,7 @@ In a more technical perspective, the ARM implements the **cold boot path**, or A
 
 For more information, please consult the [link](https://chromium.googlesource.com/chromiumos/third_party/arm-trusted-firmware/+/v1.2-rc0/docs/firmware-design.md)
 
-In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS image to the entry address, or Secure Payload (0x10100000), because the BL32 binaries are stored in the FIP address space (0x20000). Not only, but also the Device Tree Blob (DTB) address must be defined to describe the hardware features. All this steps are described below.
+In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS binary to the entry address, or Secure Payload (0x10100000), because the BL32 binaries are stored in the FIP address space (0x20000). Not only, but also the Device Tree Blob (DTB) address must be defined to describe the hardware features and the Secure State must be defined. All this steps are described below.
 
 ![alt text](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Memory.png)
 
@@ -139,14 +144,14 @@ Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navig
 ```
 code rpi4_bl31_setup.c
 ```
-As can been seen, this function performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
+As can been seen, the function *bl31_early_platform_setup2** performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
 
 ```
 // Define the OP-TEE OS image size (500k bytes)
 const size_t trustedOS_size = 500 * 1024;		
 
 // Define the OP-TEE OS image load address (FIP address - 0x20000)
-const void *const fip_addr = (const void*)(128 * 1024);	
+const void *const fip_addr = (const void*)0x20000;	
 
 // Define the OP-TEE OS image address (Secure Payload - 0x10100000)
 void *const trustedOS_addr = (void*)0x10100000;				
@@ -177,7 +182,7 @@ VERBOSE("rpi4: bl32 dtb: %p\n", (void*)bl32_image_ep_info.args.arg2);
 
 # Update the OPTEE Trusted OS
 
-First, we need to download the existing OPTEE Trusted OS from the offcial OPTEE Github website:
+First, we need to download the existing OPTEE Trusted OS from the official OPTEE Github website:
 
 ```
 cd OPTEE-RPI4
