@@ -37,7 +37,7 @@ ls
 ls configs/
 ```
 
-In this stpe, we should see the configuration files for our board! (for example, raspberrypi4_64_defconfig)
+In this step, we should see the configuration files for our board! (for example, raspberrypi4_64_defconfig)
 If not, check on the internet.
 
 From the buildroot directory, run the following command:
