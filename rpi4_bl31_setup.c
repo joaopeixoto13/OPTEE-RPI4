@@ -147,7 +147,7 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
 	 * Note: In this case, the OP-TEE OS image in no longer than 500k bytes
 	 */
 	const size_t trustedOS_size = 500 * 1024;									// Define the OP-TEE OS image size (500k bytes)
-	const void *const fip_addr = (const void*)(128 * 1024);								// Define the OP-TEE OS image load address (FIP address - 0x20000)
+	const void *const fip_addr = (const void*)0x20000;								// Define the OP-TEE OS image load address (FIP address - 0x20000)
 	void *const trustedOS_addr = (void*)0x10100000;									// Define the OP-TEE OS image address (Secure Payload - 0x10100000)
 	VERBOSE("rpi4: copy trusted_os image (%lu bytes) from %p to %p\n", trustedOS_size, fip_addr, trustedOS_addr);
 	memcpy(trustedOS_addr, fip_addr, trustedOS_size);								// Copy the OP-TEE OS image to the entry address
