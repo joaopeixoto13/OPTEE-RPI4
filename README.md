@@ -10,7 +10,7 @@ The image below graphically illustrates the steps to be performed:
 
 Not only, but in order to understand the main blocks in the architecture of OPTEE, namely which packages will be needed both for the Client Application and for the Trusted Application, see the image below:
 
-![](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/BuildingBlock.png)
+![](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/BuildingBlocks.png)
 ---
 
 # Generate the Rich Operating System
