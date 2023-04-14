@@ -350,10 +350,15 @@ Check if the dialout is on the user group:
 groups $USER
 ```
 
+Next, change the `cmdline.txt` to:
+```
+root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyS0,115200
+```
+
 Add the baudrate and the local where the board is connected on our computer:
 
 ```
-picocom -b 115200 /dev/tty/ACM0
+sudo picocom -b 115200 /dev/ttyUSB0
 ```
 
 **Note**: If you **haven't the correct output messages**, please `Reset` the board with the associated button.
