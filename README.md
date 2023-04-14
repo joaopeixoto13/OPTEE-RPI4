@@ -261,6 +261,13 @@ Therefore, the kernel image is defined and the device tree address is specified.
 
 Finnaly, the Initial RAM File System `initramfs` is defined and placed in the end of the device tree. This parameter is responsible to mount the Normal World (Rich OS) root filesystem.
 
+### Configure the cmdline.txt file
+
+Change the `cmdline.txt` to:
+```
+root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyS0,115200
+```
+
 ### Setup the SD Card
 
 Insert the SD Card and type:
@@ -348,11 +355,6 @@ Check if the dialout is on the user group:
 
 ```
 groups $USER
-```
-
-Next, change the `cmdline.txt` to:
-```
-root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyS0,115200
 ```
 
 Add the baudrate and the local where the board is connected on our computer:
