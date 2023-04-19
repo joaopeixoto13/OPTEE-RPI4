@@ -144,7 +144,7 @@ Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navig
 ```
 code rpi4_bl31_setup.c
 ```
-As can been seen, the function *bl31_early_platform_setup2** performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
+As can been seen, the function *bl31_early_platform_setup2* performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
 
 ```
 // Define the OP-TEE OS image size (500k bytes)
