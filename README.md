@@ -127,7 +127,7 @@ In a more technical perspective, the ARM implements the **cold boot path**, or A
 
 For more information, please consult the [link](https://chromium.googlesource.com/chromiumos/third_party/arm-trusted-firmware/+/v1.2-rc0/docs/firmware-design.md)
 
-In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS binary to the entry address, or Secure Payload (0x10100000), because the BL32 binaries are stored in the FIP address space (0x20000). Not only, but also the Device Tree Blob (DTB) address must be defined to describe the hardware features and the Secure State must be defined. All this steps are described below.
+In this port, and knowing the physical memory layout form the point of view of the ARM cores, visible in the image below, the approach is to copy the OPTEE Trusted OS binary to the entry address, or Secure Payload (0x10100000), because the BL32 binaries will be stored in the FIP address space (0x20000), since this is going to be concatenated to the 128k fixed size bl31. Not only, but also the Device Tree Blob (DTB) address must be defined to describe the hardware features and the Secure State must be defined. All this steps are described below.
 
 ![alt text](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/Images/Memory.png)
 
