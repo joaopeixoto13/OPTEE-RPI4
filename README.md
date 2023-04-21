@@ -144,7 +144,7 @@ Next, to perform all the discussed above, open the `rpi4_bl31_setup.c` and navig
 ```
 code rpi4_bl31_setup.c
 ```
-As can been seen, the function *bl31_early_platform_setup2* performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
+As can been seen, the function *bl31_early_platform_setup2* performs any BL31 early platform setup and can be a opportunity to copy parameters passed by the calling EL (S-EL1 in BL2 & EL3 in BL1) before they are lost (potentially). However, in this case, this function will be used to set the bl32 entry point address and copy the bl32 image binary from the FIP address (where it will initially be loaded). Copy the following code after the console initialization *rpi3_console_init()* and before the bl33 initialization:
 
 ```
 // Define the OP-TEE OS image size (500k bytes)
@@ -237,7 +237,7 @@ Next, copy the [Makefile](https://github.com/joaopeixoto13/OPTEE-RPI4/blob/main/
 make
 ```
 
-This Makefile is responsible to not only to compile the ARM Trusted Firmware and the Trusted OS, but also to **concatenate this two binaries into one binary to be loaded in the memory**.
+This Makefile is responsible to not only to compile the ARM Trusted Firmware and the Trusted OS, but also to **concatenate** this two binaries into one binary to be loaded in the memory. However, to ensure that bl32 binary will be placed in the FIP address, the bl31 binary must be 
 
 ---
 
