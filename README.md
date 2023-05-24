@@ -326,7 +326,7 @@ This will create the ARM Trustzone directory wich the **TEE-Suplicant** will fin
 To visualize if the OPTEE Client library exists, run the following command:
 
 ```
-find -name "optee_client.so"
+find -name "libteec.so"
 ```
 
 If you were successful, you are ready to execute your application, by typing:
